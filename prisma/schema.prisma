@@ -9,8 +9,8 @@ model User {
   vkRef                  String
   vkAccessTokenSettings  String
   vkIsFavorite           Boolean
-  vkIsRecommended        Boolean
-  vkHasProfileButton     Boolean
+  vkIsRecommended        Boolean  @default(false)
+  vkHasProfileButton     Boolean  @default(false)
   isDonator              Boolean  @default(false)
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
@@ -23,4 +23,11 @@ generator client {
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+generator zod {
+  provider          = "prisma-zod-generator"
+  output            = "../src/modules/schemas/prisma"
+  isGenerateSelect  = true
+  isGenerateInclude = true
 }
