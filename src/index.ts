@@ -1,18 +1,15 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { poweredBy } from "hono/powered-by";
 import { prettyJSON } from "hono/pretty-json";
-import { PrismaClient } from "@prisma/client";
 import { cors } from "hono/cors";
-import { serve } from "bun";
 import { appEnvs } from "./lib/appEnvs";
-import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
-import { parseBody } from "hono/dist/types/utils/body";
 import { randomUUID } from "crypto";
 import { userResponseSchema } from "./module/schemas/userSchema";
+import { userRouter } from "./module/routers/userRouter";
+import { prisma } from "./lib/prisma";
 
-const app = new Hono();
+const app = new Hono().basePath("/api");
 
 app.onError((err, ctx) => {
   if ("format" in err) {
@@ -23,7 +20,6 @@ app.onError((err, ctx) => {
   return ctx.json({ error: "Internal Server Error" }, 500);
 });
 
-const prisma = new PrismaClient();
 app.use("*", prettyJSON());
 app.use("*", cors());
 app.use("*", logger());
@@ -33,6 +29,7 @@ app.use("*", async (c, next) => {
   const end = Date.now();
   c.res.headers.set("X-Response-Time", `${end - start}`);
 });
+app.route("/user", userRouter);
 app.get("/", async (c) => {
   const user = await prisma.user.create({
     data: {
