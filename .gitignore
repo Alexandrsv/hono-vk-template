@@ -4,3 +4,4 @@ node_modules
 .idea
 /prisma/dev.db
 /prisma/dev.db-journal
+/src/modules/schemas/prisma/

@@ -1,12 +1,14 @@
 {
   "scripts": {
     "dev": "bun run --bun --hot src/index.ts",
-    "ts:check": "tsc --pretty --noEmit"
+    "ts:check": "tsc --pretty --noEmit",
+    "studio": "prisma studio"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.1.9",
     "@prisma/client": "5.4.2",
     "hono": "^3.7.2",
+    "prisma-zod-generator": "^0.8.13",
     "rate-limiter-flexible": "^3.0.0",
     "zod": "^3.22.4"
   },

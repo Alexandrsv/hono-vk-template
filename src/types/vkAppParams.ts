@@ -14,4 +14,5 @@ export interface IVkAppParams {
   vk_is_recommended: string;
   sign: string;
   odr_enabled: string;
+  vk_has_profile_button?: string;
 }

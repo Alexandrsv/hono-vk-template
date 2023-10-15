@@ -25,9 +25,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator zod {
-  provider          = "prisma-zod-generator"
-  output            = "../src/modules/schemas/prisma"
-  isGenerateSelect  = true
-  isGenerateInclude = true
-}
+// generator zod {
+//   provider          = "prisma-zod-generator"
+//   output            = "../src/modules/schemas/prisma"
+//   // isGenerateSelect  = true
+//   isGenerateInclude = true
+// }
