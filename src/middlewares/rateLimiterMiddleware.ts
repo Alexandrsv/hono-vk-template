@@ -1,15 +1,21 @@
-import { Context } from "hono";
+import {Context} from "hono";
 
-import { RateLimiterMemory } from "rate-limiter-flexible";
-import { appEnvs } from "../lib/appEnvs";
+import {RateLimiterMemory} from "rate-limiter-flexible";
+import {appEnvs} from "../lib/appEnvs";
 
-const rateLimiter = new RateLimiterMemory();
+const rateLimiter = new RateLimiterMemory({points
+  : appEnvs.RATE_API_LIMIT_POINTS_DEFAULT,
+  duration: appEnvs.RATE_API_LIMIT_DURATION_DEFAULT,
+});
+
 
 export const rateLimiterMiddleware =
   (
     byPath = false,
     points = appEnvs.RATE_API_LIMIT_POINTS_DEFAULT,
     duration = appEnvs.RATE_API_LIMIT_DURATION_DEFAULT,
+
+
   ) =>
   async (c: Context, next: () => Promise<void>) => {
     rateLimiter.points = points;
