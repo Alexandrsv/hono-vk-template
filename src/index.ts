@@ -8,6 +8,7 @@ import { userRouter } from "./modules/routers/userRouter";
 import { authMiddleware } from "./middlewares/authMiddleware";
 import { Variables } from "./types/contextVariables";
 import { responseTimeMiddleware } from "./middlewares/responseTimeMiddleware";
+import { authGuardMiddleware } from "./middlewares/authGuardMiddleware";
 
 const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
@@ -17,14 +18,17 @@ app.onError((err, ctx) => {
   } else {
     console.error(err);
   }
-  return ctx.json({ error: "Internal Server Error" }, 500);
+  return ctx.json({ error: "Internal Server Error|Zod" }, 500);
 });
 
 app.use("*", cors());
 app.use("*", responseTimeMiddleware);
 app.use("*", prettyJSON());
 app.use("*", logger());
+
 app.use("*", authMiddleware);
+
+app.use("*", authGuardMiddleware);
 
 app.route("/user", userRouter);
 
