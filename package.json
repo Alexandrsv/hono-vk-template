@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "bun run --bun --hot src/index.ts"
+    "dev": "bun run --bun --hot src/index.ts",
+    "ts:check": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.1.9",

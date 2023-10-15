@@ -1,4 +1,4 @@
-import { IVkAppParams } from "../models/vkAppParams";
+import { IVkAppParams } from "../types/vkAppParams";
 
 export const getVkParamsObject = (params?: string | null) => {
   if (typeof params !== "string") {
