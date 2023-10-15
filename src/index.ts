@@ -9,7 +9,11 @@ import { userResponseSchema } from "./module/schemas/userSchema";
 import { userRouter } from "./module/routers/userRouter";
 import { prisma } from "./lib/prisma";
 
-const app = new Hono().basePath("/api");
+export type Variables = {
+  message: string;
+};
+
+const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
 app.onError((err, ctx) => {
   if ("format" in err) {
@@ -19,7 +23,10 @@ app.onError((err, ctx) => {
   }
   return ctx.json({ error: "Internal Server Error" }, 500);
 });
-
+app.use("*", async (c, next) => {
+  c.set("message", "Hono is cool!!222");
+  await next();
+});
 app.use("*", prettyJSON());
 app.use("*", cors());
 app.use("*", logger());

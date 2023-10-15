@@ -5,3 +5,5 @@ export const userResponseSchema = z.object({
   name: z.string(),
   email: z.string(),
 });
+
+export const usersResponseSchema = z.array(userResponseSchema);
