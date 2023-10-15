@@ -8,10 +8,8 @@ import { randomUUID } from "crypto";
 import { userResponseSchema } from "./module/schemas/userSchema";
 import { userRouter } from "./module/routers/userRouter";
 import { prisma } from "./lib/prisma";
-
-export type Variables = {
-  message: string;
-};
+import { authMiddleware } from "./middlewares/authMiddleware";
+import { Variables } from "./types/contextVariables";
 
 const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
@@ -30,6 +28,7 @@ app.use("*", async (c, next) => {
 app.use("*", prettyJSON());
 app.use("*", cors());
 app.use("*", logger());
+app.use("*", authMiddleware);
 app.use("*", async (c, next) => {
   const start = Date.now();
   await next();
