@@ -7,3 +7,6 @@ export const userResponseSchema = z.object({
 });
 
 export const usersResponseSchema = z.array(userResponseSchema);
+
+export type UserResponse = z.infer<typeof userResponseSchema>;
+export type UsersResponse = z.infer<typeof usersResponseSchema>;
