@@ -14,6 +14,7 @@ const envSchema = z.object({
     .optional()
     .default("100")
     .transform(Number),
+  DATABASE_URL: z.string(),
 });
 
 const getEnvs = () => {
