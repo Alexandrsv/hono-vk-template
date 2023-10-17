@@ -1,6 +1,6 @@
 type VkCallbackEvent = {
   type: string;
-  object: Object;
+  object: object;
   group_id: number;
   secret?: string;
   v: string;
@@ -37,7 +37,7 @@ export type ClientInfo = {
     "open_app",
     "location",
     "open_link",
-    "callback"
+    "callback",
   ];
   keyboard: boolean;
 };
@@ -47,9 +47,9 @@ export type MessageObject = {
   from_id: number;
   id: number;
   out: number;
-  attachments: any[];
+  attachments: unknown[];
   conversation_message_id: number;
-  fwd_messages: any[];
+  fwd_messages: unknown[];
   important: boolean;
   is_hidden: boolean;
   peer_id: number;

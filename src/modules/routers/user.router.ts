@@ -14,10 +14,12 @@ userRouter.use("*", rateLimiterMiddleware(true));
 
 userRouter.get("/", async (c) => {
   const users = await prisma.user.findMany();
+
   return c.json(UsersResponseSchema.safeParse(users));
 });
 
 userRouter.get("/login", async (c) => {
   const user = await loginController(c.get("vkParams")!);
+
   return c.json(LoginResponseSchema.parse(user), 200);
 });

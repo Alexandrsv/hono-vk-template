@@ -9,6 +9,7 @@ export const UserResponseSchema = z.object({
 export const UsersResponseSchema = z.array(UserResponseSchema);
 
 export type UserResponse = z.infer<typeof UserResponseSchema>;
+
 export type UsersResponse = z.infer<typeof UsersResponseSchema>;
 
 // const UserSchema: z.ZodType<Prisma.UserCreateInput> = z.object({

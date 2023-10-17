@@ -7,7 +7,7 @@ export const checkVkSignature = (
   if (!searchOrParsedUrlQuery) return false;
 
   let sign;
-  let queryParams: Record<string, string>[] = [];
+  const queryParams: Record<string, string>[] = [];
 
   /**
    * Функция, которая обрабатывает входящий query-параметр. В случае передачи
@@ -17,7 +17,7 @@ export const checkVkSignature = (
    * @param key
    * @param value
    */
-  const processQueryParam = (key: string, value: any) => {
+  const processQueryParam = (key: string, value: unknown) => {
     if (typeof value === "string") {
       if (key === "sign") {
         sign = value;
@@ -45,6 +45,7 @@ export const checkVkSignature = (
       processQueryParam(key, value);
     }
   }
+
   // Обрабатываем исключительный случай, когда не найдена ни подпись в параметрах,
   // ни один параметр, начинающийся с "vk_", дабы избежать
   // излишней нагрузки, образующейся в процессе работы дальнейшего кода.
