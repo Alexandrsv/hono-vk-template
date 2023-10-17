@@ -25,7 +25,7 @@ export const rateLimiterMiddleware =
 
     const consumeKey = byPath ? `${uid}:${path}` : uid;
 
-    if (!adminVkIds.includes(uid) || !uid) {
+    if (adminVkIds.includes(uid) || !uid) {
       return next();
     }
 

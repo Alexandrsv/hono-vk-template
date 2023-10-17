@@ -14,7 +14,7 @@ export type UsersResponse = z.infer<typeof UsersResponseSchema>;
 // const UserSchema: z.ZodType<Prisma.UserCreateInput> = z.object({
 const UserSchema = z.object({
   vkId: z.string(),
-  vkIsAppUser: z.string(),
+  vkIsAppUser: z.boolean(),
   vkNotificationsEnabled: z.boolean(),
   vkLanguage: z.string(),
   vkRef: z.string(),
@@ -27,6 +27,10 @@ const UserSchema = z.object({
   updatedAt: z.coerce.date().optional(),
 });
 
-export const LoginResponseSchema = UserSchema.pick({
-  vkId: true,
+export const LoginResponseSchema = UserSchema.omit({
+  createdAt: true,
+  updatedAt: true,
+  vkRef: true,
 });
+
+export type LoginResponse = z.infer<typeof LoginResponseSchema>;

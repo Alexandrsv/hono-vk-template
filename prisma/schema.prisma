@@ -3,7 +3,7 @@
 
 model User {
   vkId                   String   @id @unique
-  vkIsAppUser            String
+  vkIsAppUser            Boolean
   vkNotificationsEnabled Boolean
   vkLanguage             String
   vkRef                  String

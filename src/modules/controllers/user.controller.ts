@@ -11,7 +11,7 @@ export const loginController = async (vkParams: IVkAppParams) => {
   if (!user) {
     const newUser: InsertUserModel = {
       vkId: vkParams.vk_user_id,
-      vkIsAppUser: vkParams.vk_is_app_user,
+      vkIsAppUser: vkParams.vk_is_app_user === "1",
       vkRef: vkParams.vk_ref,
       vkIsFavorite: vkParams.vk_is_favorite === "1",
       vkAccessTokenSettings: vkParams.vk_access_token_settings,
