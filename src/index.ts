@@ -8,6 +8,7 @@ import { Variables } from "./types/contextVariables";
 import { responseTimeMiddleware } from "./middlewares/responseTimeMiddleware";
 import { authGuardMiddleware } from "./middlewares/authGuardMiddleware";
 import { userRouter } from "./modules/routers/user.router";
+import { callbackRouter } from "./modules/routers/callback.router";
 
 const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
@@ -25,10 +26,11 @@ app.use("*", responseTimeMiddleware);
 app.use("*", prettyJSON());
 app.use("*", logger());
 
+app.route("/callback", callbackRouter);
+
 app.use("*", authMiddleware);
 
 app.use("*", authGuardMiddleware);
-
 app.route("/user", userRouter);
 
 export default {
