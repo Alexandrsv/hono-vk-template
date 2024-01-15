@@ -18,6 +18,20 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
 
+  app:
+    container_name: app
+    build:
+      context: .
+      args:
+        POSTGRES_PORT: ${POSTGRES_PORT_DOCKER}
+        DATABASE_URL: ${DATABASE_URL_DOCKER}
+    restart: unless-stopped
+    ports:
+      - ${APP_PORT}:8000
+    environment:
+      DATABASE_URL: ${DATABASE_URL_DOCKER}
+    depends_on:
+      - postgres
 
 #networks:
 #  traefik-default:
