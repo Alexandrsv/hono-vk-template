@@ -22,6 +22,6 @@ RUN bun install
 RUN bun install -g prisma@5.9.1
 
 RUN bun run prisma:generate;
-CMD bun run dev
+CMD bun run start
 
 
