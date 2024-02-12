@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 RUN apt-get install unzip
-RUN npm install -g bun
+RUN npm install -g bun@1.0.26
 
 RUN node --version && \
     npm --version
@@ -19,7 +19,7 @@ COPY .env ./
 COPY src ./src
 
 RUN bun install
-RUN bun install -g prisma@5.8.0
+RUN bun install -g prisma@5.9.1
 
 RUN bun run prisma:generate;
 CMD bun run dev
