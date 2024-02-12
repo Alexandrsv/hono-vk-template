@@ -1,17 +1,5 @@
 import { z } from "zod";
 
-export const UserResponseSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  email: z.string(),
-});
-
-export const UsersResponseSchema = z.array(UserResponseSchema);
-
-export type UserResponse = z.infer<typeof UserResponseSchema>;
-
-export type UsersResponse = z.infer<typeof UsersResponseSchema>;
-
 // const UserSchema: z.ZodType<Prisma.UserCreateInput> = z.object({
 const UserSchema = z.object({
   vkId: z.string(),
@@ -28,10 +16,23 @@ const UserSchema = z.object({
   updatedAt: z.coerce.date().optional(),
 });
 
+export const UserResponseSchema = UserSchema.pick({
+  vkId: true,
+  isDonator: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const UsersResponseSchema = z.array(UserResponseSchema);
+
 export const LoginResponseSchema = UserSchema.omit({
   createdAt: true,
   updatedAt: true,
   vkRef: true,
 });
+
+export type UserResponse = z.infer<typeof UserResponseSchema>;
+
+export type UsersResponse = z.infer<typeof UsersResponseSchema>;
 
 export type LoginResponse = z.infer<typeof LoginResponseSchema>;
