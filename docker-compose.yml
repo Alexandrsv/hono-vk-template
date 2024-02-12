@@ -32,7 +32,7 @@ services:
       DATABASE_URL: ${DATABASE_URL_DOCKER}
     depends_on:
       - postgres
-    network_mode: "host"
+
 
 #networks:
 #  traefik-default:

@@ -1,20 +1,11 @@
-FROM oven/bun:canary-alpine
-
-WORKDIR /app
-
-RUN bun --revision
-
-RUN apk update && \
-    apk add \
-    openssl \
+FROM ubuntu:22.04
+RUN apt-get update && apt-get install -y \
     curl \
-    wget \
-    git \
-    gnupg
-
-
-RUN apk add nodejs
-RUN apk add npm
+    && rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get install unzip
+RUN npm install -g bun
 
 RUN node --version && \
     npm --version
@@ -27,7 +18,7 @@ COPY tsconfig.json ./
 COPY .env ./
 COPY src ./src
 
-RUN bun install --force
+RUN bun install
 RUN bun install -g prisma@5.8.0
 
 RUN bun run prisma:generate;
