@@ -1,4 +1,6 @@
 import { z } from "zod";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const envSchema = z.object({
   APP_PORT: z.string(),
@@ -18,7 +20,7 @@ const envSchema = z.object({
 });
 
 const getEnvs = () => {
-  return envSchema.parse(Bun.env);
+  return envSchema.parse(process.env);
 };
 
 export const appEnvs = getEnvs();

@@ -9,6 +9,7 @@ import { responseTimeMiddleware } from "./middlewares/responseTimeMiddleware";
 import { authGuardMiddleware } from "./middlewares/authGuardMiddleware";
 import { userRouter } from "./modules/routers/user.router";
 import { callbackRouter } from "./modules/routers/callback.router";
+import { serve } from "@hono/node-server";
 
 const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
@@ -33,7 +34,12 @@ app.use("*", authMiddleware);
 app.use("*", authGuardMiddleware);
 app.route("/user", userRouter);
 
-export default {
-  port: appEnvs.APP_PORT,
+console.log(
+  `Приложение запущено 🚀 
+http://localhost:${appEnvs.APP_PORT}/api/`,
+);
+
+serve({
+  port: +appEnvs.APP_PORT,
   fetch: app.fetch,
-};
+});
