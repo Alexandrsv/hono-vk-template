@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "User" (
     "vkId" TEXT NOT NULL,
-    "vkIsAppUser" TEXT NOT NULL,
+    "vkIsAppUser" BOOLEAN NOT NULL,
     "vkNotificationsEnabled" BOOLEAN NOT NULL,
     "vkLanguage" TEXT NOT NULL,
     "vkRef" TEXT NOT NULL,
