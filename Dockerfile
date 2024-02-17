@@ -1,27 +1,16 @@
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get install -y nodejs
-RUN apt-get install unzip
-RUN npm install -g bun@1.0.26
+FROM node:20-alpine
 
-RUN node --version && \
-    npm --version
+WORKDIR /app
 
+COPY package*.json ./
 
-COPY package.json ./
-COPY bun.lockb ./
-COPY prisma ./prisma
-COPY tsconfig.json ./
-COPY .env ./
-COPY src ./src
+RUN npm install --production
 
-RUN bun install
-RUN bun install -g prisma@5.9.1
+COPY . .
 
-RUN bun run prisma:generate;
-CMD bun run start
+RUN npx prisma generate
+
+CMD ["npm", "start"]
+
 
 
